@@ -17,14 +17,15 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Install Gradle manually
+      - name: Install Gradle properly
         run: |
-          curl -s https://services.gradle.org/distributions/gradle-8.7-bin.zip -o gradle.zip
-          unzip -q gradle.zip
+          wget https://services.gradle.org/distributions/gradle-8.7-bin.zip -O gradle.zip
+          ls -lh gradle.zip
+          unzip gradle.zip
 
       - name: Build project
         run: |
-          ./gradle-*/bin/gradle build --stacktrace
+          ./gradle-8.7/bin/gradle build --stacktrace
 
       - name: Upload JAR
         uses: actions/upload-artifact@v4
