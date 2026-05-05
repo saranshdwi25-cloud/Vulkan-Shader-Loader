@@ -1,17 +1,33 @@
 name: Build Mod
-on: [push]
+
+on:
+  push:
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
-          java-version: '21'
+          java-version: '17'
           distribution: 'temurin'
-      - name: Build
-        run: chmod +x gradlew && ./gradlew build
-      - uses: actions/upload-artifact@v4
+
+      - name: Install Gradle manually
+        run: |
+          curl -s https://services.gradle.org/distributions/gradle-8.7-bin.zip -o gradle.zip
+          unzip -q gradle.zip
+
+      - name: Build project
+        run: |
+          ./gradle-*/bin/gradle build --stacktrace
+
+      - name: Upload JAR
+        uses: actions/upload-artifact@v4
         with:
           name: VulkanShaderLoader-JAR
           path: build/libs/*.jar
