@@ -6,7 +6,7 @@ inside VulkanMod's options screen, click **Apply** — done.
 
 ---
 
-##Features
+## Features
 
 | Feature | Status |
 |---|---|
